@@ -13,7 +13,7 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   return (
     <header className="nav">
-      <a className="nav__brand" href="#inicio">Portfolio</a>
+      <a className="nav__brand" href="#inicio">R4</a>
       <nav className={`nav__links ${open ? 'is-open' : ''}`} aria-label="Principal">
         {LINKS.map(([id, label]) => (
           <a key={id} href={`#${id}`} className={active === id ? 'is-active' : ''} onClick={() => setOpen(false)}>

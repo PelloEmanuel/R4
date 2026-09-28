@@ -24,8 +24,8 @@ app.use(
 );
 app.use(express.json({ limit: '10kb' }));
 
-// --- Lectura del portfolio -------------------------------------------------
-app.get('/api/portfolio', async (_req, res) => {
+// --- Lectura del r4 -------------------------------------------------
+app.get('/api/r4', async (_req, res) => {
   try {
     const [profile, skills, experience, achievements, projects] = await Promise.all([
       pool.query('SELECT * FROM profile LIMIT 1'),
@@ -49,7 +49,7 @@ app.get('/api/portfolio', async (_req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'No pudimos cargar el portfolio.' });
+    res.status(500).json({ error: 'No pudimos cargar el R4.' });
   }
 });
 

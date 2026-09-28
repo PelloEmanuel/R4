@@ -1,6 +1,6 @@
-# Portfolio full stack (React + Express + PostgreSQL)
+# R4 full stack (React + Express + PostgreSQL)
 
-Portfolio de una sola página. Los datos (perfil, habilidades, trayectoria, logros y proyectos) se leen desde una base de datos relacional y el formulario de contacto guarda los mensajes en ella.
+R4 de una sola página. Los datos (perfil, habilidades, trayectoria, logros y proyectos) se leen desde una base de datos relacional y el formulario de contacto guarda los mensajes en ella.
 
 ## Stack
 - **Frontend:** React 18 + Vite, CSS propio (tema claro/oscuro, responsive).
@@ -10,7 +10,7 @@ Portfolio de una sola página. Los datos (perfil, habilidades, trayectoria, logr
 ## Estructura
 ```
 database/   schema.sql (tablas) y seed.sql (datos de ejemplo)
-server/     API REST: GET /api/portfolio, POST /api/contact
+server/     API REST: GET /api/r4, POST /api/contact
 client/src/
   components/  Navbar, Hero, About, Skills, Experience, Achievements, Projects, Contact, Section
   hooks/       useTheme, useFetch, useInView, useActiveSection
@@ -27,9 +27,9 @@ client/src/
 
 ## Desarrollo local
 ```bash
-createdb portfolio
+createdb r4
 cp server/.env.example server/.env        # completar DATABASE_URL
-export DATABASE_URL=postgres://usuario:clave@localhost:5432/portfolio
+export DATABASE_URL=postgres://usuario:clave@localhost:5432/r4
 npm run db:init
 cd server && npm install && node --env-file=.env index.js   # terminal 1
 cd client && npm install && npm run dev                      # terminal 2 (http://localhost:5173)

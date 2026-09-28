@@ -11,13 +11,13 @@ import Contact from './components/Contact';
 
 export default function App() {
   const [theme, toggleTheme] = useTheme();
-  const { data, loading, error, retry } = useFetch('/api/portfolio');
+  const { data, loading, error, retry } = useFetch('/api/r4');
 
   return (
     <>
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <main>
-        {loading && <p className="state">Cargando portfolio…</p>}
+        {loading && <p className="state">Cargando R4…</p>}
         {error && (
           <div className="state">
             <p>{error}. Revisá tu conexión e intentá otra vez.</p>

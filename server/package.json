@@ -1,5 +1,5 @@
 {
-  "name": "portfolio-server",
+  "name": "r4-server",
   "version": "1.0.0",
   "type": "module",
   "scripts": { "start": "node index.js", "dev": "node --watch index.js" },
