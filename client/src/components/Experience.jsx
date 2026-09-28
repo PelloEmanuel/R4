@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import Section from './Section';
 
-const fmt = (d) => (d ? new Date(d).toLocaleDateString('es-AR', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : 'Actualidad');
-const TABS = [['laboral', 'Experiencia'], ['educacion', 'Educación']];
+const fmt = (d) => new Date(d).toLocaleDateString('es-AR', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const TABS = [['educacion', 'Educación'], ['laboral', 'Experiencia']];
+
+// Sin fechas cargadas y sin fecha de fin = todavía se está cursando.
+function period(i) {
+  if (!i.start_date && !i.end_date) return 'Cursando actualmente';
+  return `${i.start_date ? fmt(i.start_date) : ''} – ${i.end_date ? fmt(i.end_date) : 'Actualidad'}`;
+}
 
 export default function Experience({ items }) {
-  const [tab, setTab] = useState('laboral');
+  const [tab, setTab] = useState('educacion');
   const filtered = items.filter((i) => i.kind === tab);
 
   return (
@@ -21,7 +27,7 @@ export default function Experience({ items }) {
         {filtered.length === 0 && <li>Todavía no hay registros en esta categoría.</li>}
         {filtered.map((i) => (
           <li key={i.id}>
-            <time>{fmt(i.start_date)} – {fmt(i.end_date)}</time>
+            <time>{period(i)}</time>
             <h3>{i.role}</h3>
             <p className="muted">{i.organization}</p>
             {i.description && <p>{i.description}</p>}

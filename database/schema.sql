@@ -1,4 +1,5 @@
--- Modelo relacional en 3FN. Ejecutar una vez: psql $DATABASE_URL -f database/schema.sql
+-- Modelo relacional en 3FN. Ejecutar una vez: npm run db:init
+-- (contact_message se mantiene en el DROP para limpiar bases creadas con la versión anterior)
 DROP TABLE IF EXISTS project_skill, contact_message, project, achievement, experience, skill, skill_category, profile CASCADE;
 
 CREATE TABLE profile (
@@ -6,10 +7,8 @@ CREATE TABLE profile (
   full_name   VARCHAR(120) NOT NULL,
   headline    VARCHAR(160) NOT NULL,
   bio         TEXT NOT NULL,
-  email       VARCHAR(160) NOT NULL,
   location    VARCHAR(120),
-  github_url  VARCHAR(255),
-  linkedin_url VARCHAR(255)
+  github_url  VARCHAR(255)
 );
 
 CREATE TABLE skill_category (
@@ -21,7 +20,7 @@ CREATE TABLE skill (
   id          SERIAL PRIMARY KEY,
   category_id INT NOT NULL REFERENCES skill_category(id) ON DELETE RESTRICT,
   name        VARCHAR(60) NOT NULL UNIQUE,
-  level       SMALLINT NOT NULL CHECK (level BETWEEN 1 AND 5)
+  description VARCHAR(200) NOT NULL              -- ejemplo simple de qué hago con la tecnología
 );
 
 CREATE TABLE experience (
@@ -29,8 +28,8 @@ CREATE TABLE experience (
   kind         VARCHAR(10) NOT NULL CHECK (kind IN ('laboral', 'educacion')),
   role         VARCHAR(120) NOT NULL,
   organization VARCHAR(120) NOT NULL,
-  start_date   DATE NOT NULL,
-  end_date     DATE CHECK (end_date IS NULL OR end_date >= start_date),
+  start_date   DATE,                              -- opcional
+  end_date     DATE CHECK (start_date IS NULL OR end_date IS NULL OR end_date >= start_date),
   description  TEXT
 );
 
@@ -55,14 +54,6 @@ CREATE TABLE project_skill (
   project_id INT NOT NULL REFERENCES project(id) ON DELETE CASCADE,
   skill_id   INT NOT NULL REFERENCES skill(id)   ON DELETE CASCADE,
   PRIMARY KEY (project_id, skill_id)
-);
-
-CREATE TABLE contact_message (
-  id         SERIAL PRIMARY KEY,
-  name       VARCHAR(100) NOT NULL,
-  email      VARCHAR(160) NOT NULL,
-  message    TEXT NOT NULL CHECK (char_length(message) BETWEEN 10 AND 2000),
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX idx_skill_category ON skill(category_id);

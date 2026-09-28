@@ -13,7 +13,9 @@ export default function Hero({ profile }) {
       <p className="hero__headline">{profile.headline}</p>
       <div className="hero__cta">
         <a className="btn" href="#proyectos">Ver proyectos</a>
-        <a className="btn btn--ghost" href="#contacto">Escribime</a>
+        {profile.github_url && (
+          <a className="btn btn--ghost" href={profile.github_url} target="_blank" rel="noreferrer">Mi GitHub</a>
+        )}
       </div>
     </section>
   );

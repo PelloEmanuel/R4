@@ -57,10 +57,11 @@ main, .footer { max-width: var(--max); margin-inline: auto; padding-inline: 1.25
 .about__data { list-style: none; margin: 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: .5rem; }
 
 /* ---------- Habilidades ---------- */
-.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
-.bar { margin-bottom: .9rem; font-size: .95rem; }
-.bar__track { height: 8px; margin-top: .3rem; border-radius: 99px; background: var(--line); overflow: hidden; }
-.bar__fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--mint)); border-radius: 99px; transition: width 1.1s cubic-bezier(.2, .8, .2, 1); }
+/* Tarjetas de habilidades: aparecen suavemente al entrar en pantalla (useInView) */
+.skill { opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .6s; }
+.skills.is-visible .skill { opacity: 1; transform: none; }
+.skill__category { font-size: .8rem; color: var(--mint); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.skill p { margin: 0; color: var(--muted); font-size: .98rem; }
 
 /* ---------- Trayectoria ---------- */
 .tabs, .chips { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
@@ -78,16 +79,8 @@ main, .footer { max-width: var(--max); margin-inline: auto; padding-inline: 1.25
 .card--project:hover { transform: translateY(-4px); border-color: var(--accent); }
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: auto 0 1rem; }
 .tags li { font-size: .8rem; padding: .15rem .6rem; border-radius: 99px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
-.card__links { display: flex; gap: 1rem; font-weight: 500; }
-
-/* ---------- Formulario ---------- */
-.form { display: grid; gap: 1rem; max-width: 560px; }
-.form label { display: grid; gap: .3rem; font-weight: 500; }
-.form input, .form textarea { padding: .75rem .9rem; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; }
-.form [aria-invalid='true'] { border-color: #d64545; }
-.form .btn { justify-self: start; }
-.error { color: #d64545; font-weight: 400; }
-.status--ok { color: var(--mint); } .status--error { color: #d64545; }
+.card__links { display: flex; gap: 1rem; font-weight: 500; color: var(--accent); }
+a.card--project { color: inherit; text-decoration: none; }
 
 .footer { padding-block: 3rem; color: var(--muted); text-align: center; }
 

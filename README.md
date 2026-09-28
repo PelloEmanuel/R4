@@ -1,29 +1,29 @@
 # R4 full stack (React + Express + PostgreSQL)
 
-R4 de una sola página. Los datos (perfil, habilidades, trayectoria, logros y proyectos) se leen desde una base de datos relacional y el formulario de contacto guarda los mensajes en ella.
+R4 de una sola página. Los datos (perfil, habilidades, trayectoria, logros y proyectos) se leen desde una base de datos relacional se leen desde ella.
 
 ## Stack
 - **Frontend:** React 18 + Vite, CSS propio (tema claro/oscuro, responsive).
-- **Backend:** Node.js + Express (`helmet`, rate limit, validación, consultas parametrizadas).
+- **Backend:** Node.js + Express (`helmet`, consultas parametrizadas).
 - **BBDD:** PostgreSQL, modelo en 3FN (`database/schema.sql`).
 
 ## Estructura
 ```
 database/   schema.sql (tablas) y seed.sql (datos de ejemplo)
-server/     API REST: GET /api/r4, POST /api/contact
+server/     API REST: GET /api/r4
 client/src/
-  components/  Navbar, Hero, About, Skills, Experience, Achievements, Projects, Contact, Section
+  components/  Navbar, Hero, About, Skills, Experience, Achievements, Projects, Section
   hooks/       useTheme, useFetch, useInView, useActiveSection
 ```
 
 ## Requisitos cubiertos
 - **Hooks:** useState, useEffect, useRef, useMemo, useCallback + 4 hooks propios.
-- **Eventos:** toggle de tema, menú móvil, pestañas, filtros de proyectos, envío del formulario, scroll (IntersectionObserver).
-- **Animaciones:** entrada del nombre, barras de habilidades al hacerse visibles, transiciones y hover; respeta `prefers-reduced-motion`.
-- **Seguridad BBDD:** queries con parámetros, CHECK/FK/UNIQUE, límite de envíos, credenciales en variables de entorno.
+- **Eventos:** toggle de tema, menú móvil, pestañas, filtros de proyectos, scroll (IntersectionObserver).
+- **Animaciones:** entrada del nombre, tarjetas de habilidades al hacerse visibles, transiciones y hover; respeta `prefers-reduced-motion`.
+- **Seguridad BBDD:** queries con parámetros, CHECK/FK/UNIQUE, credenciales en variables de entorno.
 
 ## Modelo de datos (3FN)
-`profile` · `skill_category` 1—N `skill` · `project` N—M `skill` (tabla `project_skill`) · `experience` · `achievement` · `contact_message`.
+`profile` · `skill_category` 1—N `skill` · `project` N—M `skill` (tabla `project_skill`) · `experience` · `achievement`.
 
 ## Desarrollo local
 ```bash
@@ -41,7 +41,7 @@ cd client && npm install && npm run dev                      # terminal 2 (http:
 3. Render → **New → Web Service** con el repo:
    - Build Command: `npm run build`
    - Start Command: `npm start`
-   - Variables: `DATABASE_URL` (*Internal Database URL*) y `DB_SSL=true`
+   - Variables: `DATABASE_URL` (*Internal Database URL*) y `DB_SSL=false`
 4. Cuando termine, el link `https://tu-app.onrender.com` es la entrega.
 
 ## Personalización

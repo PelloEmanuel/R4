@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import Section from './Section';
 
+// Cada tarjeta completa es un link al repositorio de GitHub.
 export default function Projects({ projects }) {
   const [filter, setFilter] = useState('Todos');
   const tags = useMemo(() => ['Todos', ...new Set(projects.flatMap((p) => p.skills))], [projects]);
@@ -17,15 +18,12 @@ export default function Projects({ projects }) {
       </div>
       <div className="grid">
         {visible.map((p) => (
-          <article key={p.id} className="card card--project">
+          <a key={p.id} className="card card--project" href={p.repo_url} target="_blank" rel="noreferrer">
             <h3>{p.title}</h3>
             <p>{p.description}</p>
             <ul className="tags">{p.skills.map((s) => <li key={s}>{s}</li>)}</ul>
-            <div className="card__links">
-              {p.demo_url && <a href={p.demo_url} target="_blank" rel="noreferrer">Ver demo</a>}
-              {p.repo_url && <a href={p.repo_url} target="_blank" rel="noreferrer">Ver código</a>}
-            </div>
-          </article>
+            <span className="card__links">Ver en GitHub →</span>
+          </a>
         ))}
       </div>
     </Section>

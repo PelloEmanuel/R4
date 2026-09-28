@@ -2,10 +2,12 @@
   "name": "r4-server",
   "version": "1.0.0",
   "type": "module",
-  "scripts": { "start": "node index.js", "dev": "node --watch index.js" },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
   "dependencies": {
     "express": "^4.19.2",
-    "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
     "pg": "^8.12.0"
   }

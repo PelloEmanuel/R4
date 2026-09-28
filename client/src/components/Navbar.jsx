@@ -3,7 +3,7 @@ import useActiveSection from '../hooks/useActiveSection';
 
 const LINKS = [
   ['sobre-mi', 'Sobre mí'], ['habilidades', 'Habilidades'], ['trayectoria', 'Trayectoria'],
-  ['logros', 'Logros'], ['proyectos', 'Proyectos'], ['contacto', 'Contacto'],
+  ['logros', 'Logros'], ['proyectos', 'Proyectos'],
 ];
 const IDS = LINKS.map(([id]) => id);
 
