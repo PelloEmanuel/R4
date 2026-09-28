@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pool } from './db.js';
+import adminRouter from './admin.js';
 
 const app = express();
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '../client/dist');
@@ -21,6 +22,12 @@ app.use(
     },
   })
 );
+app.use(express.json());
+
+// --- Panel de administración (agregar/editar/eliminar) -----------------
+// Todo lo que modifica datos vive bajo /api/admin y pide la contraseña
+// definida en la variable de entorno ADMIN_PASSWORD (ver server/admin.js).
+app.use('/api/admin', adminRouter);
 
 // --- Lectura del r4 -------------------------------------------------
 app.get('/api/r4', async (_req, res) => {

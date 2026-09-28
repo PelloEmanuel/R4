@@ -97,3 +97,51 @@ a.card--project { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Panel de administración ---------- */
+.btn--danger { background: #c0392b; border-color: #c0392b; color: #fff; }
+.btn--danger:hover { box-shadow: 0 8px 20px -8px #c0392b; }
+.btn--danger-ghost { background: transparent; border: 1px solid #c0392b; color: #c0392b; border-radius: 999px; padding: .45rem 1rem; font: inherit; font-size: .9rem; cursor: pointer; }
+.btn--danger-ghost:hover { background: color-mix(in srgb, #c0392b 12%, transparent); }
+
+.admin-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+.admin-login__box { width: 100%; max-width: 380px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; display: grid; gap: .6rem; }
+.admin-login__box h1 { font-size: 1.4rem; }
+.admin-login__box input { padding: .65rem .8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+.admin-login__back { color: var(--muted); font-size: .9rem; text-align: center; margin-top: .5rem; }
+
+.admin { max-width: var(--max); margin-inline: auto; padding: 1.5rem 1.25rem 4rem; }
+.admin__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.admin__back { font-size: .9rem; color: var(--muted); }
+.admin__tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; border-bottom: 1px solid var(--line); padding-bottom: .75rem; }
+.admin__tabs button { padding: .5rem 1.1rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.admin__tabs button.is-active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+.admin-section__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.admin-section { margin-bottom: 3rem; }
+
+.admin-list { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .6rem; }
+.admin-list__item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem 1.1rem; }
+.admin-list__actions { display: flex; gap: .5rem; flex-shrink: 0; }
+
+.admin-form, .admin-inline-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: grid; gap: .9rem; margin-bottom: 1.5rem; }
+.admin-form__field { display: grid; gap: .35rem; }
+.admin-form__field input[type="text"], .admin-form__field input[type="date"], .admin-form__field textarea, .admin-form__field select {
+  padding: .6rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit;
+}
+.admin-form__checks { display: flex; flex-wrap: wrap; gap: .6rem .9rem; }
+.admin-form__check { display: flex; align-items: center; gap: .4rem; font-size: .95rem; }
+.admin-form__actions { display: flex; gap: .6rem; justify-content: flex-end; }
+.admin-inline-form__row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.admin-inline-form__row input { flex: 1; min-width: 200px; padding: .55rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+
+.admin-error { color: #c0392b; font-size: .92rem; }
+.admin-success { color: var(--mint); font-size: .92rem; }
+
+.modal-backdrop { position: fixed; inset: 0; background: rgba(10, 14, 26, .55); display: flex; align-items: center; justify-content: center; padding: 1.25rem; z-index: 50; }
+.modal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; max-width: 420px; width: 100%; box-shadow: 0 20px 50px -20px rgba(0,0,0,.4); }
+.modal__actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.25rem; }
+
+@media (max-width: 640px) {
+  .admin-list__item { flex-direction: column; align-items: flex-start; }
+}
