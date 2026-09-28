@@ -20,6 +20,8 @@ export default function Navbar({ theme, onToggleTheme }) {
             {label}
           </a>
         ))}
+        {/* Va a /admin, que pide contraseña antes de mostrar nada (ver AdminApp.jsx) */}
+        <a href="/admin" className="nav__admin">Admin</a>
       </nav>
       <div className="nav__actions">
         <button className="icon-btn" onClick={onToggleTheme} aria-label={`Cambiar a tema ${theme === 'dark' ? 'claro' : 'oscuro'}`}>
