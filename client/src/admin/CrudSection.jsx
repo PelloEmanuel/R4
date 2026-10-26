@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import { apiFetch } from './api';
 import ConfirmDialog from './ConfirmDialog';
+import DateField from './DateField';
 
 // Valores iniciales de un formulario vacío (texto vacío; lista vacía en multiselect).
 function emptyValues(fields) {
@@ -216,10 +217,18 @@ export default function CrudSection({
                   })}
                 </div>
               )}
-              {(f.type === 'text' || f.type === 'date' || !f.type) && (
+              {/* Fechas: se escriben o se eligen en el calendario (ver DateField.jsx) */}
+              {f.type === 'date' && (
+                <DateField
+                  id={`f-${f.name}`}
+                  value={values[f.name]}
+                  onChange={(v) => updateField(f.name, v)}
+                />
+              )}
+              {(f.type === 'text' || !f.type) && (
                 <input
                   id={`f-${f.name}`}
-                  type={f.type === 'date' ? 'date' : 'text'}
+                  type="text"
                   value={values[f.name]}
                   onChange={(e) => updateField(f.name, e.target.value)}
                 />
