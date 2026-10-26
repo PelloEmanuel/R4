@@ -1,6 +1,10 @@
+/**
+ * Sección "Trayectoria": línea de tiempo con pestañas Educación / Experiencia.
+ */
 import { useState } from 'react';
 import Section from './Section';
 
+// Formatea una fecha como "mar 2025" (en UTC para que no cambie de día).
 const fmt = (d) => new Date(d).toLocaleDateString('es-AR', { month: 'short', year: 'numeric', timeZone: 'UTC' });
 const TABS = [['educacion', 'Educación'], ['laboral', 'Experiencia']];
 
@@ -11,6 +15,7 @@ function period(i) {
 }
 
 export default function Experience({ items }) {
+  // Pestaña activa; al cambiarla se filtran los registros.
   const [tab, setTab] = useState('educacion');
   const filtered = items.filter((i) => i.kind === tab);
 

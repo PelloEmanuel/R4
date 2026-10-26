@@ -1,5 +1,9 @@
+/**
+ * ABM de Logros: define sus campos y se los pasa a CrudSection.
+ */
 import CrudSection from '../CrudSection';
 
+// Campos del formulario. fromItem recorta la fecha a AAAA-MM-DD para el input date.
 const fields = [
   { name: 'title', label: 'Título', type: 'text', required: true },
   {

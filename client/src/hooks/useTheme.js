@@ -1,3 +1,6 @@
+/**
+ * Hook: tema claro/oscuro. Se guarda en localStorage y en data-theme del <html>.
+ */
 import { useEffect, useState } from 'react';
 
 // Tema claro/oscuro persistente.

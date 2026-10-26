@@ -1,3 +1,6 @@
+/**
+ * Punto de entrada de React: elige entre el portfolio público y el panel /admin.
+ */
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import AdminApp from './admin/AdminApp.jsx';

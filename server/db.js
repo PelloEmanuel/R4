@@ -1,3 +1,7 @@
+/**
+ * Conexión a PostgreSQL. Lee DATABASE_URL (y DB_SSL=true en hosts con SSL, como Render).
+ * Todos los archivos del servidor importan "pool" desde acá.
+ */
 import pg from 'pg';
 
 // Pool de conexiones. Las consultas SIEMPRE usan parámetros ($1, $2...) para evitar SQL injection.

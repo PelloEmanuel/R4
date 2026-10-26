@@ -1,3 +1,6 @@
+/**
+ * ABM de Trayectoria (educación y experiencia laboral). Las fechas son opcionales.
+ */
 import CrudSection from '../CrudSection';
 
 const KIND_OPTIONS = [
@@ -5,6 +8,7 @@ const KIND_OPTIONS = [
   { value: 'laboral', label: 'Experiencia laboral' },
 ];
 
+// Fecha de fin vacía = sigue en curso.
 const fields = [
   { name: 'kind', label: 'Tipo', type: 'select', required: true, options: KIND_OPTIONS },
   { name: 'role', label: 'Rol / título', type: 'text', required: true },

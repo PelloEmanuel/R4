@@ -1,6 +1,10 @@
+/**
+ * Barra de navegación fija: enlaces a cada sección, botón Admin, tema claro/oscuro y menú móvil.
+ */
 import { useState } from 'react';
 import useActiveSection from '../hooks/useActiveSection';
 
+// Cada enlace es [id de la sección, texto del menú].
 const LINKS = [
   ['sobre-mi', 'Sobre mí'], ['habilidades', 'Habilidades'], ['trayectoria', 'Trayectoria'],
   ['logros', 'Logros'], ['proyectos', 'Proyectos'],
@@ -8,7 +12,9 @@ const LINKS = [
 const IDS = LINKS.map(([id]) => id);
 
 export default function Navbar({ theme, onToggleTheme }) {
+  // Controla si el menú móvil está desplegado.
   const [open, setOpen] = useState(false);
+  // Sección visible en pantalla, para resaltarla en el menú.
   const active = useActiveSection(IDS);
 
   return (

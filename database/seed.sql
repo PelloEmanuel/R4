@@ -1,3 +1,4 @@
+-- Datos iniciales del portfolio. Se pueden editar después desde /admin.
 INSERT INTO profile (full_name, headline, bio, location, github_url) VALUES
 ('Pello Emanuel',
  'Estudiante de informática',

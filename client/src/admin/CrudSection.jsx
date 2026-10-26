@@ -1,13 +1,19 @@
+/**
+ * Componente reutilizable de ABM (alta, baja y modificación). Muestra la lista, el formulario
+ * de crear/editar y la confirmación antes de eliminar. Cada sección solo define sus campos.
+ */
 import { useEffect, useState } from 'react';
 import { apiFetch } from './api';
 import ConfirmDialog from './ConfirmDialog';
 
+// Valores iniciales de un formulario vacío (texto vacío; lista vacía en multiselect).
 function emptyValues(fields) {
   const v = {};
   for (const f of fields) v[f.name] = f.type === 'multiselect' ? [] : '';
   return v;
 }
 
+// Carga un registro existente en el formulario para editarlo.
 function valuesFromItem(fields, item) {
   const v = {};
   for (const f of fields) {
@@ -33,6 +39,7 @@ export default function CrudSection({
   onChanged,
   extra,
 }) {
+  // Estado: lista, carga, errores, formulario abierto, registro editado y registro a eliminar.
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
@@ -44,6 +51,7 @@ export default function CrudSection({
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
+  // Trae la lista desde la API.
   async function load() {
     setLoading(true);
     setLoadError('');
@@ -58,6 +66,7 @@ export default function CrudSection({
 
   useEffect(() => { load(); }, [endpoint]);
 
+  // Abre el formulario vacío (modo "Nuevo").
   function openCreate() {
     setValues(emptyValues(fields));
     setEditingId(null);
@@ -65,6 +74,7 @@ export default function CrudSection({
     setShowForm(true);
   }
 
+  // Abre el formulario con los datos del registro (modo "Editar").
   function openEdit(item) {
     setValues(valuesFromItem(fields, item));
     setEditingId(item.id);
@@ -81,6 +91,7 @@ export default function CrudSection({
     setValues((v) => ({ ...v, [name]: value }));
   }
 
+  // Valida campos obligatorios y manda POST (nuevo) o PUT (editar); después recarga la lista.
   async function handleSubmit(e) {
     e.preventDefault();
     const missing = fields.filter((f) => f.required && !values[f.name] && values[f.name] !== 0);
@@ -107,6 +118,7 @@ export default function CrudSection({
     }
   }
 
+  // Se ejecuta recién cuando el usuario confirma en el cuadro de diálogo.
   async function confirmDelete() {
     if (!deleteTarget) return;
     setDeleting(true);
@@ -225,6 +237,7 @@ export default function CrudSection({
         </form>
       )}
 
+      {/* Cuadro de confirmación: aparece al tocar "Eliminar". */}
       <ConfirmDialog
         open={!!deleteTarget}
         title={`Eliminar ${deleteTarget ? itemTitle(deleteTarget) : ''}`}

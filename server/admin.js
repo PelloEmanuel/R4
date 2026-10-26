@@ -1,3 +1,9 @@
+/**
+ * API de administración: crear, editar y eliminar el contenido del portfolio.
+ * Montada en /api/admin (ver index.js). Todas las rutas, salvo /login, exigen la
+ * contraseña ADMIN_PASSWORD en el header "x-admin-password".
+ * Patrón de cada recurso: GET (listar), POST (crear), PUT /:id (editar), DELETE /:id (borrar).
+ */
 import { Router } from 'express';
 import crypto from 'node:crypto';
 import { pool } from './db.js';
@@ -8,6 +14,7 @@ const router = Router();
 // No hay usuarios ni roles: una sola clave (ADMIN_PASSWORD) protege todo
 // lo que modifica datos. El cliente la manda en el header x-admin-password
 // en cada pedido de escritura; nunca se guarda en la base ni se loguea.
+// Compara contraseñas en tiempo constante (evita ataques por tiempo de respuesta).
 function safeEqual(a, b) {
   const bufA = Buffer.from(String(a));
   const bufB = Buffer.from(String(b));
@@ -15,6 +22,7 @@ function safeEqual(a, b) {
   return crypto.timingSafeEqual(bufA, bufB);
 }
 
+// Middleware: corta el pedido con 401 si la contraseña no coincide.
 function requireAdmin(req, res, next) {
   const configured = process.env.ADMIN_PASSWORD;
   if (!configured) {
@@ -27,6 +35,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+// Solo verifica la contraseña; el panel la usa para decidir si muestra el contenido.
 router.post('/login', (req, res) => {
   const configured = process.env.ADMIN_PASSWORD;
   if (!configured) {
@@ -54,6 +63,7 @@ const h = (fn) => async (req, res) => {
   }
 };
 
+// Devuelve la lista de campos obligatorios que faltan en el body.
 function required(body, fields) {
   const missing = fields.filter((f) => body[f] === undefined || body[f] === null || body[f] === '');
   return missing;
@@ -65,6 +75,7 @@ router.get('/profile', h(async (_req, res) => {
   res.json(r.rows[0] ?? null);
 }));
 
+// El perfil es un único registro (id = 1): se crea si no existe y si no, se actualiza.
 router.put('/profile', h(async (req, res) => {
   const { full_name, headline, bio, location, github_url } = req.body ?? {};
   const missing = required(req.body ?? {}, ['full_name', 'headline', 'bio']);
@@ -85,6 +96,7 @@ router.get('/skill-categories', h(async (_req, res) => {
   res.json(r.rows);
 }));
 
+// Si la categoría ya existe no falla: devuelve la existente.
 router.post('/skill-categories', h(async (req, res) => {
   const { name } = req.body ?? {};
   if (!name) return res.status(400).json({ error: 'Falta el nombre de la categoría.' });
@@ -222,6 +234,7 @@ router.get('/projects', h(async (_req, res) => {
   res.json(r.rows);
 }));
 
+// Reemplaza las tecnologías de un proyecto (tabla intermedia project_skill).
 async function syncProjectSkills(client, projectId, skillIds) {
   await client.query('DELETE FROM project_skill WHERE project_id = $1', [projectId]);
   const ids = Array.isArray(skillIds) ? [...new Set(skillIds)] : [];
@@ -230,6 +243,7 @@ async function syncProjectSkills(client, projectId, skillIds) {
   }
 }
 
+// Transacción: o se guardan el proyecto y sus tecnologías, o no se guarda nada.
 router.post('/projects', h(async (req, res) => {
   const { title, description, repo_url, demo_url, skill_ids } = req.body ?? {};
   const missing = required(req.body ?? {}, ['title', 'description']);

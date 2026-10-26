@@ -1,3 +1,6 @@
+/**
+ * Hook: hace un GET a una URL. Devuelve { data, loading, error, retry }.
+ */
 import { useCallback, useEffect, useState } from 'react';
 
 // Carga datos de la API con estados de carga y error.

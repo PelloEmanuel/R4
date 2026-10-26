@@ -1,3 +1,8 @@
+/**
+ * Servidor principal (Express).
+ * Sirve 3 cosas: la API pública de lectura (/api/r4), la API de administración
+ * (/api/admin, ver admin.js) y el frontend ya compilado (client/dist).
+ */
 import express from 'express';
 import helmet from 'helmet';
 import path from 'node:path';
@@ -8,7 +13,9 @@ import adminRouter from './admin.js';
 const app = express();
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '../client/dist');
 
+// Render usa un proxy: necesario para que Express vea bien la conexión real.
 app.set('trust proxy', 1);
+// Cabeceras de seguridad (helmet). La política CSP solo permite recursos propios y Google Fonts.
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -22,6 +29,7 @@ app.use(
     },
   })
 );
+// Convierte el cuerpo JSON de cada pedido en req.body.
 app.use(express.json());
 
 // --- Panel de administración (agregar/editar/eliminar) -----------------
@@ -30,6 +38,7 @@ app.use(express.json());
 app.use('/api/admin', adminRouter);
 
 // --- Lectura del r4 -------------------------------------------------
+// Una sola respuesta con todo el contenido: las 5 consultas corren en paralelo.
 app.get('/api/r4', async (_req, res) => {
   try {
     const [profile, skills, experience, achievements, projects] = await Promise.all([
@@ -59,6 +68,7 @@ app.get('/api/r4', async (_req, res) => {
 });
 
 // --- Frontend compilado ------------------------------------------------------
+// Cualquier otra ruta devuelve el frontend (así /admin funciona al recargar).
 app.use(express.static(dist));
 app.get('*', (_req, res) => res.sendFile(path.join(dist, 'index.html')));
 

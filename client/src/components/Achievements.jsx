@@ -1,3 +1,6 @@
+/**
+ * Sección "Logros": una tarjeta por logro, o un mensaje si todavía no hay ninguno.
+ */
 import Section from './Section';
 
 export default function Achievements({ items }) {

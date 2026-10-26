@@ -1,10 +1,15 @@
+/**
+ * Sección "Proyectos": tarjetas con filtro por tecnología.
+ */
 import { useMemo, useState } from 'react';
 import Section from './Section';
 
 // Cada tarjeta completa es un link al repositorio de GitHub.
 export default function Projects({ projects }) {
   const [filter, setFilter] = useState('Todos');
+  // Lista de filtros: "Todos" + las tecnologías sin repetir.
   const tags = useMemo(() => ['Todos', ...new Set(projects.flatMap((p) => p.skills))], [projects]);
+  // Proyectos que cumplen con el filtro elegido.
   const visible = filter === 'Todos' ? projects : projects.filter((p) => p.skills.includes(filter));
 
   return (

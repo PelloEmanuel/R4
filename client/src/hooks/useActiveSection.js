@@ -1,3 +1,6 @@
+/**
+ * Hook: devuelve el id de la sección que se está viendo (la del centro de la pantalla).
+ */
 import { useEffect, useState } from 'react';
 
 // Resalta en el menú la sección que está visible mientras se hace scroll.

@@ -1,5 +1,10 @@
+/**
+ * Cliente HTTP del panel. Agrega la contraseña guardada en cada pedido y traduce los errores
+ * del servidor a mensajes. Si el servidor responde 401, borra la contraseña y vuelve al login.
+ */
 const STORAGE_KEY = 'r4_admin_password';
 
+// Lee la contraseña guardada en el navegador (localStorage).
 export function getToken() {
   try {
     return localStorage.getItem(STORAGE_KEY) || '';
@@ -24,6 +29,7 @@ export function setUnauthorizedHandler(fn) {
   onUnauthorized = fn;
 }
 
+// Uso: apiFetch("/api/admin/skills", { method: "POST", body: {...} }). Lanza Error si falla.
 export async function apiFetch(path, { method = 'GET', body } = {}) {
   const res = await fetch(path, {
     method,

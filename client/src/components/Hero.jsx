@@ -1,3 +1,6 @@
+/**
+ * Portada: nombre animado, subtítulo y botones de acceso rápido.
+ */
 // Momento animado principal: el nombre aparece letra por letra al cargar.
 export default function Hero({ profile }) {
   const letters = [...profile.full_name];

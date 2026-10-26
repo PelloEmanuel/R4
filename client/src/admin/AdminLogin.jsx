@@ -1,3 +1,6 @@
+/**
+ * Pantalla de login del panel: pide la contraseña y la valida contra /api/admin/login.
+ */
 import { useState } from 'react';
 import { apiFetch, setToken } from './api';
 

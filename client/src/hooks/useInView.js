@@ -1,3 +1,6 @@
+/**
+ * Hook: avisa cuándo un elemento entra en pantalla (IntersectionObserver). Se usa para animar.
+ */
 import { useEffect, useRef, useState } from 'react';
 
 // Devuelve [ref, visible]: visible pasa a true la primera vez que el elemento entra en pantalla.

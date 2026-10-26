@@ -1,3 +1,6 @@
+/**
+ * Sección "Sobre mí": biografía, ubicación y enlace a GitHub (si están cargados).
+ */
 import Section from './Section';
 
 export default function About({ profile }) {

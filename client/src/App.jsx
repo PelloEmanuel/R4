@@ -1,3 +1,7 @@
+/**
+ * Portfolio público. Pide todo el contenido a /api/r4 y lo reparte a cada sección.
+ * Muestra "cargando" o un error con botón de reintento mientras no hay datos.
+ */
 import useFetch from './hooks/useFetch';
 import useTheme from './hooks/useTheme';
 import Navbar from './components/Navbar';
@@ -9,6 +13,7 @@ import Achievements from './components/Achievements';
 import Projects from './components/Projects';
 
 export default function App() {
+  // Tema claro/oscuro y carga de datos (hooks propios en /hooks).
   const [theme, toggleTheme] = useTheme();
   const { data, loading, error, retry } = useFetch('/api/r4');
 
@@ -23,6 +28,7 @@ export default function App() {
             <button className="btn" onClick={retry}>Reintentar</button>
           </div>
         )}
+        {/* Las secciones solo se dibujan cuando ya llegaron los datos. */}
         {data && data.profile && (
           <>
             <Hero profile={data.profile} />

@@ -1,3 +1,7 @@
+/*
+   Estilos de todo el sitio (portfolio público y panel /admin).
+   Los colores y medidas están en variables (:root); el tema oscuro las redefine con [data-theme="dark"].
+*/
 /* ---------- Tokens ---------- */
 :root {
   --bg: #eef2f7; --surface: #ffffff; --ink: #14203a; --muted: #5a6683;

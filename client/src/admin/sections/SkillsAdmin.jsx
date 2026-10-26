@@ -1,3 +1,6 @@
+/**
+ * ABM de Habilidades. Incluye un mini formulario para crear categorías.
+ */
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../api';
 import CrudSection from '../CrudSection';
@@ -18,6 +21,7 @@ export default function SkillsAdmin() {
 
   useEffect(() => { loadCategories(); }, []);
 
+  // Crea una categoría nueva y recarga el selector.
   async function addCategory(e) {
     e.preventDefault();
     if (!newCategory.trim()) return;
@@ -34,6 +38,7 @@ export default function SkillsAdmin() {
     }
   }
 
+  // Las opciones de "Categoría" vienen de la API.
   const fields = [
     { name: 'name', label: 'Nombre (ej. React)', type: 'text', required: true },
     { name: 'description', label: 'Qué hacés con esa tecnología', type: 'textarea', required: true },
@@ -54,6 +59,7 @@ export default function SkillsAdmin() {
       itemTitle={(s) => s.name}
       itemSubtitle={(s) => `${s.category} — ${s.description}`}
       emptyMessage="Todavía no cargaste ninguna habilidad."
+      /* El id de categoría llega como texto: se convierte a número. */
       buildPayload={(v) => ({ ...v, category_id: Number(v.category_id) })}
       extra={
         <form className="admin-inline-form" onSubmit={addCategory}>

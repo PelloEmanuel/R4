@@ -1,3 +1,5 @@
+-- Estructura de la base de datos (PostgreSQL), normalizada hasta 3FN.
+-- OJO: DROP TABLE borra todo antes de recrear. Ejecutar con server/init-db.js.
 -- Modelo relacional en 3FN. Ejecutar una vez: npm run db:init
 -- (contact_message se mantiene en el DROP para limpiar bases creadas con la versión anterior)
 DROP TABLE IF EXISTS project_skill, contact_message, project, achievement, experience, skill, skill_category, profile CASCADE;

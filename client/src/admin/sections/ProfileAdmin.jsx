@@ -1,6 +1,10 @@
+/**
+ * Edición del perfil (nombre, subtítulo, bio, ubicación, GitHub). Es un único registro, por eso no usa CrudSection.
+ */
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../api';
 
+// Cada campo es [nombre en la base, etiqueta, tipo de input].
 const FIELDS = [
   ['full_name', 'Nombre completo', 'text'],
   ['headline', 'Subtítulo de portada', 'text'],
@@ -29,6 +33,7 @@ export default function ProfileAdmin() {
     })();
   }, []);
 
+  // Guarda con PUT y muestra "Guardado".
   async function handleSubmit(e) {
     e.preventDefault();
     setSaving(true);

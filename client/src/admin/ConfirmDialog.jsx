@@ -1,3 +1,6 @@
+/**
+ * Cuadro de confirmación propio (reemplaza a window.confirm). Se cierra con Cancelar, Escape o clic afuera.
+ */
 import { useEffect, useRef } from 'react';
 
 // Modal propio de confirmación. Se usa siempre antes de eliminar algo:
@@ -5,6 +8,7 @@ import { useEffect, useRef } from 'react';
 export default function ConfirmDialog({ open, title, message, confirmLabel = 'Eliminar', onConfirm, onCancel }) {
   const cancelRef = useRef(null);
 
+  // Al abrir: foco en "Cancelar" (opción segura) y atajo de teclado Escape.
   useEffect(() => {
     if (!open) return;
     cancelRef.current?.focus();
