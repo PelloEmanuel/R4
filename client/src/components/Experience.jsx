@@ -3,15 +3,14 @@
  */
 import { useState } from 'react';
 import Section from './Section';
+import { formatDate } from '../utils/dates';
 
-// Formatea una fecha como "mar 2025" (en UTC para que no cambie de día).
-const fmt = (d) => new Date(d).toLocaleDateString('es-AR', { month: 'short', year: 'numeric', timeZone: 'UTC' });
 const TABS = [['educacion', 'Educación'], ['laboral', 'Experiencia']];
 
-// Sin fechas cargadas y sin fecha de fin = todavía se está cursando.
+// Período en formato dd/mm/aaaa. Sin fechas cargadas y sin fecha de fin = todavía se está cursando.
 function period(i) {
   if (!i.start_date && !i.end_date) return 'Cursando actualmente';
-  return `${i.start_date ? fmt(i.start_date) : ''} – ${i.end_date ? fmt(i.end_date) : 'Actualidad'}`;
+  return `${formatDate(i.start_date)} – ${i.end_date ? formatDate(i.end_date) : 'Actualidad'}`;
 }
 
 export default function Experience({ items }) {

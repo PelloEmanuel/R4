@@ -2,6 +2,7 @@
  * Sección "Logros": una tarjeta por logro, o un mensaje si todavía no hay ninguno.
  */
 import Section from './Section';
+import { formatDate } from '../utils/dates';
 
 export default function Achievements({ items }) {
   return (
@@ -12,7 +13,7 @@ export default function Achievements({ items }) {
         <div className="grid">
           {items.map((a) => (
             <article key={a.id} className="card">
-              <time className="muted">{new Date(a.achieved_on).getUTCFullYear()}</time>
+              <time className="muted">{formatDate(a.achieved_on)}</time>
               <h3>{a.title}</h3>
               <p>{a.description}</p>
             </article>

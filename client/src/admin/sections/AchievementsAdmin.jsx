@@ -2,6 +2,7 @@
  * ABM de Logros: define sus campos y se los pasa a CrudSection.
  */
 import CrudSection from '../CrudSection';
+import { formatDate } from '../../utils/dates';
 
 // Campos del formulario. fromItem recorta la fecha a AAAA-MM-DD para el input date.
 const fields = [
@@ -23,7 +24,7 @@ export default function AchievementsAdmin() {
       endpoint="/api/admin/achievements"
       fields={fields}
       itemTitle={(a) => a.title}
-      itemSubtitle={(a) => String(a.achieved_on).slice(0, 10)}
+      itemSubtitle={(a) => formatDate(a.achieved_on)}
       emptyMessage="Todavía no cargaste logros."
     />
   );
